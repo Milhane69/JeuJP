@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+    background-color: #050505;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#ui {
+    font-size: 28px;
+    margin: 20px;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+#playground {
+    width: 95%;
+    flex-grow: 1;
+    background-color: #000;
+    /* Petite grille de fond style TRON */
+    background-image: 
+        linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    border: 2px solid #222;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+/* Le Joueur (Carré Vert) */
+#sprite {
+    width: 40px;
+    height: 40px;
+    background-color: #00ff00;
+    position: absolute;
+    box-shadow: 0 0 25px #00ff00;
+    border-radius: 4px;
+    z-index: 100; /* Toujours au-dessus des ennemis */
+}
+
+/* L'Ennemi (IMAGE) */
+.enemy {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    /* --- CONFIGURATION DE L'IMAGE --- */
+    background-image: url('photo.png'); /* <--- TON IMAGE ICI */
+    background-size: cover;
+    background-position: center;
+    /* Optionnel: une petite lueur rouge derrière l'image */
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7)); 
+    z-index: 10;
+}
