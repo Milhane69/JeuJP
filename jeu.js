@@ -132,10 +132,10 @@ const game = {
     },
 
     handleInput: function() {
-        if (this.keys["ArrowUp"])    player.vy -= player.speed;
-        if (this.keys["ArrowDown"])  player.vy += player.speed;
-        if (this.keys["ArrowLeft"])  player.vx -= player.speed;
-        if (this.keys["ArrowRight"]) player.vx += player.speed;
+        if (this.keys["Z"])    player.vy -= player.speed;
+        if (this.keys["Q"])  player.vy += player.speed;
+        if (this.keys["S"])  player.vx -= player.speed;
+        if (this.keys["D"]) player.vx += player.speed;
     },
 
     loop: function() {
