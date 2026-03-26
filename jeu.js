@@ -132,10 +132,11 @@ const game = {
     },
 
     handleInput: function() {
-        if (this.keys["Z"])    player.vy -= player.speed;
-        if (this.keys["Q"])  player.vy += player.speed;
-        if (this.keys["S"])  player.vx -= player.speed;
-        if (this.keys["D"]) player.vx += player.speed;
+        // Mise à jour ZQSD + Flèches (corrigé)
+        if (this.keys["z"] || this.keys["arrowup"])    player.vy -= player.speed;
+        if (this.keys["s"] || this.keys["arrowdown"])  player.vy += player.speed;
+        if (this.keys["q"] || this.keys["arrowleft"])  player.vx -= player.speed;
+        if (this.keys["d"] || this.keys["arrowright"]) player.vx += player.speed;
     },
 
     loop: function() {
@@ -156,23 +157,27 @@ const game = {
         ui.scoreDom.innerText = Math.floor(this.score);
         ui.countDom.innerText = this.enemies.length;
 
-        // --- NOUVEAU : Logique d'apparition (Spawn) ---
+        // --- Logique d'apparition (Spawn) ---
         let now = Date.now();
         if (now - this.lastSpawnTime > this.spawnInterval) {
             this.enemies.push(new Enemy()); // Ajouter un ennemi
             this.lastSpawnTime = now; // Reset chronomètre
-            this.spawnInterval *= 0.98; // Optionnel : accélère le rythme d'apparition !
-            console.log("Nouvel ennemi ! Total: " + this.enemies.length);
+            this.spawnInterval *= 0.98; // Accélère le rythme d'apparition !
         }
 
         window.requestAnimationFrame(() => this.loop());
     }
 };
 
-// --- ECOUTEURS DE TOUCHES ---
-window.addEventListener("keydown", (e) => game.keys[e.key] = true);
-window.addEventListener("keyup", (e) => game.keys[e.key] = false);
+// --- ECOUTEURS DE TOUCHES (Plus robustes) ---
+window.addEventListener("keydown", (e) => {
+    // On convertit en minuscule pour supporter ZQSD et zqsd
+    game.keys[e.key.toLowerCase()] = true;
+});
+
+window.addEventListener("keyup", (e) => {
+    game.keys[e.key.toLowerCase()] = false;
+});
 
 // LANCEMENT
-// Attendre que le playground soit chargé pour connaître ses dimensions
 window.onload = () => game.start();
